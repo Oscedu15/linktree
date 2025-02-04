@@ -1,7 +1,57 @@
+"use client";
 import { TreePalm } from "lucide-react";
 import { LinkProfile } from "./components";
+import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
+import { Link, User } from "@prisma/client";
+import { LoaderProfile } from "@/components/Shared";
 
 export default function HomePage() {
+  const { user } = useUser();
+  const [isFirstVisit, setIsFirstVisit] = useState(false);
+  const [reload, setReload] = useState(false);
+  const [infoUser, setInfoUser] = useState<(User & { links: Link[] }) | null>(
+    null
+  );
+
+  useEffect(() => {
+    //Funcion para chequear los datosd del usuario si esta registrado
+    const chekFirstLogin = async () => {
+      //Hacemos el llamado a nuestra api
+      const response = await fetch("/api/info-user");
+      //si la respuesta es correcta, guardamos los datos en la constante data
+      const data = await response.json();
+      //Lo guardamos en el estado de la informacion del usuario
+      setInfoUser(data);
+      //Guardamos en nuestro estado si es o no es la primera vez que el usuario se conecta a nuestra aplicacion
+      setIsFirstVisit(data.firstLogin);
+      console.log({ data });
+    };
+
+    //Si esta cargando, volvemos a invocar la funcion de pedir los datos del usuario a nuestro backends
+    if (reload) {
+      chekFirstLogin();
+      setReload(false);
+    }
+
+    chekFirstLogin();
+  }, [user?.id, reload, user]);
+  //Se va amontar el useeffect cada vez que cambie el usuario, este carganfo o exista un usuario
+
+  //Si aun no carga el usuario o su informacion, muestra un loading
+  if (!user || !infoUser) {
+    return <LoaderProfile />;
+  }
+
+  if (!isFirstVisit) {
+    return (
+      <div>
+        <p>Es la primera vez</p>
+      </div>
+    );
+  }
+
+  //Esto solo lo mostrara cuando ya sea la segunda vez o mas que visite la aplicacion
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-[60%_auto] gap-4 px-4">

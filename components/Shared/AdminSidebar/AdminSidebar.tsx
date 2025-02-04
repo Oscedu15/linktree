@@ -19,7 +19,7 @@ import {
 import { ChevronUp, TreePalm, User2 } from "lucide-react";
 
 import { items } from "./AdminSidebar.data";
-
+import Link from "next/link";
 
 export default function AdminSidebar() {
   return (
@@ -38,10 +38,10 @@ export default function AdminSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
