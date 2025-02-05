@@ -25,7 +25,9 @@ export default function StepOne() {
         {dataCreator?.map((data, index) => (
           <div
             key={index}
-            className="flex flex-col items-center rounded-full border py-2 hover:bg-gray-200 transition-all duration-300 cursor-pointer"
+            className={`flex flex-col items-center rounded-full border py-2 hover:bg-gray-200 transition-all duration-300 cursor-pointer ${
+              data.value === data.title ? "bg-gray-400" : ""
+            }`}
             onClick={() => handleClick(data.value)}
           >
             {data.title}
