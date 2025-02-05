@@ -5,6 +5,8 @@ import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { Link, User } from "@prisma/client";
 import { LoaderProfile } from "@/components/Shared";
+import { StepConfigUserProvider } from "@/contexts";
+import HandlerSteps from "./components/HandlerSteps/HandlerSteps";
 
 export default function HomePage() {
   const { user } = useUser();
@@ -43,11 +45,12 @@ export default function HomePage() {
     return <LoaderProfile />;
   }
 
-  if (!isFirstVisit) {
+  if (isFirstVisit) {
     return (
-      <div>
-        <p>Es la primera vez</p>
-      </div>
+      // Nuestro contexto para acceder, modificar y enviar datos de los usuarios cuando se conectan por primera vez
+      <StepConfigUserProvider>
+      <HandlerSteps onReload={setReload}/>
+      </StepConfigUserProvider>
     );
   }
 
