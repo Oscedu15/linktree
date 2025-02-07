@@ -12,6 +12,7 @@ export function StepTwo() {
     infoUser?.platforms?.map((platform) => platform.name) || []
   );
 
+  //Funcion para verificar si ya tenemos o no un plataformas seleccionado
   const handleSelectPlatform = (platform: string) => {
     setSelectedPlatforms((prevSelected) => {
       if (prevSelected.includes(platform)) {
@@ -22,18 +23,20 @@ export function StepTwo() {
     });
   };
 
-  console.log(selectedPlatforms);
-
+  //Funcion para enviar la informacion seleccionada al estado de
+  //selectedPlatforms incluidos las plataformas seleccionadas en este paso
   const handleContinue = () => {
     setInfoUser((prevInfoUser) => ({
       ...prevInfoUser,
-
+      
       platforms: stepTwoData.filter(({ name }) =>
         selectedPlatforms.includes(name)
       ),
     }));
     nextStep();
+    console.log(selectedPlatforms);
   };
+  
 
   return (
     <div>
@@ -42,20 +45,20 @@ export function StepTwo() {
       </h2>
       <p className="text-center">Pickup the ones you are on.</p>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4 mt-4">
-        {stepTwoData?.map((data, index) => (
+        {stepTwoData?.map(({ icon, name }) => (
           <div
-            key={index}
+            key={name}
             className={`flex flex-col gap-1 items-center rounded-lg
             py-3 hover:bg-violet-300 ${
-              selectedPlatforms.includes(data.name)
+              selectedPlatforms.includes(name)
                 ? "bg-violet-900 text-white"
                 : "bg-slate-100 text-violet-900"
             }
              transition-all duration-300 cursor-pointer`}
-            onClick={() => handleSelectPlatform(data.name)}
+            onClick={() => handleSelectPlatform(name)}
           >
-            <Image src={data.icon} alt="icon" width={40} height={40} />
-            <p className="text-sm">{data.name}</p>
+            <Image src={icon} alt="icon" width={40} height={40} />
+            <p className="text-sm">{name}</p>
           </div>
         ))}
       </div>

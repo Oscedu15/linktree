@@ -14,13 +14,14 @@ import { ArrowLeft } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import StepOne from "../StepOne/StepOne";
 import { StepTwo } from "../StepTwo";
+import { StepThree } from "../StepThree";
 
 
 export default function HandlerSteps(props: HandlerStepsProps) {
   const { onReload } = props;
   const [openDialog, setOpenDialog] = useState(true);
   //Llamamos a la configuracion de nuestro contexto, para acceder a los datos alli establecidos
-  const { totalSteps, step, prevStep } = useStepConfig();
+  const { totalSteps, step, prevStep, infoUser } = useStepConfig();
 
   //Nuestra barra de progreso
   const progressValue = (step / totalSteps) * 100;
@@ -30,6 +31,8 @@ export default function HandlerSteps(props: HandlerStepsProps) {
     onReload(true);
     setOpenDialog(false);
   };
+
+  console.log({infoUser})
 
   return (
     <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
@@ -50,7 +53,7 @@ export default function HandlerSteps(props: HandlerStepsProps) {
             <div className="">
               {step === 1 && <StepOne/>}
               {step === 2 && <StepTwo/>}
-              {step === 3 && <p>Step Three</p>}
+              {step === 3 && <StepThree/>}
               {step === 4 && <p>Step Four</p>}
               {step === 5 && <p>Step Five</p>}
             </div>

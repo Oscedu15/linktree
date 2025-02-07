@@ -25,7 +25,7 @@ export function StepConfigUserProvider({
 }: StepConfigUserProviderProps) {
   const [step, setStep] = useState(1);
   const [infoUser, setInfoUser] = useState<
-    StepConfigUserContextType["infouser"]
+    StepConfigUserContextType["infoUser"]
   >({
     typeUser: "",
     name: "",
