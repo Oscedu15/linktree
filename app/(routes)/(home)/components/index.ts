@@ -7,3 +7,5 @@ export * from "./StepOne/StepOne"
 export * from "./StepTwo"
 
 export * from "./StepThree"
+
+export * from "./StepFour"

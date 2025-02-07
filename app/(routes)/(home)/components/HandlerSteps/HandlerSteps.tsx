@@ -15,6 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import StepOne from "../StepOne/StepOne";
 import { StepTwo } from "../StepTwo";
 import { StepThree } from "../StepThree";
+import { StepFour } from "../StepFour";
 
 
 export default function HandlerSteps(props: HandlerStepsProps) {
@@ -54,7 +55,7 @@ export default function HandlerSteps(props: HandlerStepsProps) {
               {step === 1 && <StepOne/>}
               {step === 2 && <StepTwo/>}
               {step === 3 && <StepThree/>}
-              {step === 4 && <p>Step Four</p>}
+              {step === 4 && <StepFour/>}
               {step === 5 && <p>Step Five</p>}
             </div>
           </AlertDialogDescription>
