@@ -6,16 +6,18 @@ import { Button } from "@/components/ui/button";
 import { UploadButton } from "@/lib/uploadthing";
 import { Plus } from "lucide-react";
 import { useStepConfig } from "@/hooks/useStepConfig";
+import axios from "axios";
+import { toast } from "@/hooks/use-toast";
 
 export function StepFour() {
   const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUserName] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   const [showUpLoadPhoto, setShowUpLoadPhoto] = useState(false);
 
   const [selectedPhoto, setSelectedPhoto] = useState("");
 
-  const { setInfoUser } = useStepConfig();
+  const { setInfoUser, infoUser, nextStep } = useStepConfig();
 
   const handleImageSelect = (src: string) => {
     setSelectedPhoto(src);
@@ -25,7 +27,38 @@ export function StepFour() {
     }));
   };
 
-  console.log(photoUrl);
+  const handleContinue = async () => {
+    if (!name || !username) {
+      alert("Please, fill all fields and select and image");
+      return;
+    }
+
+    setInfoUser((prevInfoUser) => ({
+      ...prevInfoUser,
+      name,
+      username,
+    }));
+
+    try {
+      const response = await axios.post("/api/user", {
+        name: name,
+        username: username,
+        avatarUrl: infoUser.avatarUrl,
+        links: infoUser.platforms,
+        typeUser: infoUser.typeUser,
+      });
+
+      if (response.status === 200) {
+        nextStep();
+      }
+    } catch (error) {
+      console.error({ error });
+      toast({ title: "Este usuario ya existe, intentenlo con otro nombre" });
+      console.log("Este es el console.log", error);
+    }
+  };
+
+  // console.log(photoUrl);
   return (
     <div>
       <h2 className="text-center font-semibold text-2xl">
@@ -78,6 +111,10 @@ export function StepFour() {
               setShowUpLoadPhoto(false);
             }}
             onUploadError={(error: Error) => {
+              toast({
+                title:
+                  "Este usuario ya existe, intentalo nuevamente con otro nombre",
+              });
               console.error(error);
             }}
           />
@@ -103,12 +140,15 @@ export function StepFour() {
           <Input
             placeholder="User Name"
             className="w-full"
-            value={userName}
+            value={username}
             onChange={(e) => setUserName(e.target.value)}
           />
         </div>
         <div className="mt-6 md:mt-16">
-          <Button className="w-full bg-purple-600 hover:bg-purple-700 transition-all duration-300 cursor-pointer">
+          <Button
+            className="w-full bg-purple-600 hover:bg-purple-700 transition-all duration-300 cursor-pointer"
+            onClick={handleContinue}
+          >
             Continue
           </Button>
         </div>

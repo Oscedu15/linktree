@@ -19,6 +19,7 @@ model User {
   name            String?
   bio             String?
   username        String? @unique
+  avatarUrl       String?
   firstLogin      Boolean @default(true)
   typeUser        String? @db.Text
   backgroundImage String?

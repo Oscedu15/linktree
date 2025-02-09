@@ -16,7 +16,7 @@ import StepOne from "../StepOne/StepOne";
 import { StepTwo } from "../StepTwo";
 import { StepThree } from "../StepThree";
 import { StepFour } from "../StepFour";
-
+import { Summary } from "../Summary";
 
 export default function HandlerSteps(props: HandlerStepsProps) {
   const { onReload } = props;
@@ -33,7 +33,7 @@ export default function HandlerSteps(props: HandlerStepsProps) {
     setOpenDialog(false);
   };
 
-  console.log({infoUser})
+  console.log({ infoUser });
 
   return (
     <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
@@ -52,11 +52,11 @@ export default function HandlerSteps(props: HandlerStepsProps) {
           </AlertDialogTitle>
           <AlertDialogDescription asChild>
             <div className="">
-              {step === 1 && <StepOne/>}
-              {step === 2 && <StepTwo/>}
-              {step === 3 && <StepThree/>}
-              {step === 4 && <StepFour/>}
-              {step === 5 && <p>Step Five</p>}
+              {step === 1 && <StepOne />}
+              {step === 2 && <StepTwo />}
+              {step === 3 && <StepThree />}
+              {step === 4 && <StepFour />}
+              {step === 5 && <Summary onReload={onClosDialog} />}
             </div>
           </AlertDialogDescription>
         </AlertDialogHeader>
