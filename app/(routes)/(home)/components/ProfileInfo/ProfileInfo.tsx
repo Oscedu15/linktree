@@ -9,7 +9,6 @@ export function ProfileInfo(props: ProfileInfoProps) {
   return (
     <div className="mt-10 max-w-2xl mx-auto">
       <div className="flex flex-row pb- space-x-sm items-center justify-between">
-        ProfileInfo
         <ProfileImage/>
         <p>{user?.username}</p>
       </div>

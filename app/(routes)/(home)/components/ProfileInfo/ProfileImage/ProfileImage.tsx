@@ -1,7 +1,53 @@
-
+"use client";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useUserInfo } from "@/hooks/useUser";
+import { Pencil } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+import { SelectorProfileImage } from "./SelectorProfileImage";
 
 export function ProfileImage() {
+  const [showDialog, setShowDialog] = useState(false);
+
+  const { user } = useUserInfo();
+
+  if (!user) return null;
+
   return (
-    <div>ProfileImage</div>
-  )
+    <Dialog open={showDialog} onOpenChange={setShowDialog}>
+      <DialogTrigger className="text-left">
+        <div className="relative">
+          <Image
+            src={user.avatarUrl || "/avatar-default.jpg"}
+            alt="Avatar"
+            width={80}
+            height={80}
+            className="rounded-full object-cover aspect-square"
+          />
+          <div
+            className="bg-white rounded-full flex items-center 
+          justify-center border w-xl h-xl absolute right-[-5px] bottom-[-12px]
+          p-1.5"
+          >
+            <Pencil className="text-slate-300 w-4 h-4" />
+          </div>
+        </div>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Display name and bio</DialogTitle>
+          <DialogDescription asChild>
+            <SelectorProfileImage setShowDialog={setShowDialog}/>
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
 }
