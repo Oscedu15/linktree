@@ -5,8 +5,9 @@ import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { Link, User } from "@prisma/client";
 import { LoaderProfile } from "@/components/Shared";
-import { StepConfigUserProvider } from "@/contexts";
+import { StepConfigUserProvider, UserProvider } from "@/contexts";
 import HandlerSteps from "./components/HandlerSteps/HandlerSteps";
+import { ProfileInfo } from "./components/ProfileInfo";
 
 export default function HomePage() {
   const { user } = useUser();
@@ -49,20 +50,20 @@ export default function HomePage() {
     return (
       // Nuestro contexto para acceder, modificar y enviar datos de los usuarios cuando se conectan por primera vez
       <StepConfigUserProvider>
-      <HandlerSteps onReload={setReload}/>
+        <HandlerSteps onReload={setReload} />
       </StepConfigUserProvider>
     );
   }
 
   //Esto solo lo mostrara cuando ya sea la segunda vez o mas que visite la aplicacion
   return (
-    <div>
+    <UserProvider>
       <div className="grid grid-cols-1 md:grid-cols-[60%_auto] gap-4 px-4">
         <div>
           <LinkProfile />
           {/* Profile Info */}
           <div>
-            <p>Profile Info</p>
+            <ProfileInfo onReload={setReload} />
           </div>
           <div className="mt-20 flex flex-col items-center">
             <div className="py-10 font-semibold text-center justify-center flex flex-col items-center text-gray-400">
@@ -77,6 +78,6 @@ export default function HomePage() {
           <p>Profile Preview</p>
         </div>
       </div>
-    </div>
+    </UserProvider>
   );
 }
