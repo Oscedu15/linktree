@@ -1,6 +1,6 @@
 "use client";
 import { TreePalm } from "lucide-react";
-import { LinkProfile } from "./components";
+import { LinkProfile, ProfilePreview } from "./components";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { Link, User } from "@prisma/client";
@@ -75,7 +75,7 @@ export default function HomePage() {
         </div>
         {/* Profile Preview */}
         <div>
-          <p>Profile Preview</p>
+          <ProfilePreview/>
         </div>
       </div>
     </UserProvider>
