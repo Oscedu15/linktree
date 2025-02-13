@@ -38,6 +38,7 @@ export function EditBackground(props: EditBackgroundProps) {
     reloadUser();
     setShowDialog(false);
     onReload(true);
+    setPhotoUrl("");
   };
 
   return (
