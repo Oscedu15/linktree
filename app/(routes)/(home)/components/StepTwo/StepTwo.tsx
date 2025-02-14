@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useStepConfig } from "@/hooks/useStepConfig";
-import React, { useState } from "react";
-import { stepTwoData } from "./StepTwo.data";
+import { useState } from "react";
 import Image from "next/image";
+import { linksSocial } from "@/data/linksSocialNetwork";
 
 export function StepTwo() {
   //Con useStepConfig traemos nuestro contexto de usuarios
@@ -28,15 +28,14 @@ export function StepTwo() {
   const handleContinue = () => {
     setInfoUser((prevInfoUser) => ({
       ...prevInfoUser,
-      
-      platforms: stepTwoData.filter(({ name }) =>
+
+      platforms: linksSocial.filter(({ name }) =>
         selectedPlatforms.includes(name)
       ),
     }));
     nextStep();
     console.log(selectedPlatforms);
   };
-  
 
   return (
     <div>
@@ -45,7 +44,7 @@ export function StepTwo() {
       </h2>
       <p className="text-center">Pickup the ones you are on.</p>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4 mt-4">
-        {stepTwoData?.map(({ icon, name }) => (
+        {linksSocial?.map(({ icon, name }) => (
           <div
             key={name}
             className={`flex flex-col gap-1 items-center rounded-lg

@@ -23,10 +23,10 @@ export function BlockInfo() {
     <div className="w-full flex flex-col gap-1 px-2">
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogTrigger>
-            <span className="hover:underline cursor-pointer">
+            <span className="hover:underline cursor-pointer font-bold">
                 @{user.username}
             </span>
-            <span className="block text-sm text-gray-400 hover:underline">
+            <span className="block text-sm text-gray-400 font-semibold hover:underline">
                 {user?.bio ? "Edit Bio" : "Add Bio"}
             </span>
         </DialogTrigger>

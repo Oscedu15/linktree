@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { EditSocialNetwork } from "./EditSocialNetwork";
+import { RemoveSocialNetwork } from "./RemoveSocialNetwork";
 
 
 export function ListSocialNetwork(props: ListSocialNetworkProps) {
@@ -35,6 +36,7 @@ export function ListSocialNetwork(props: ListSocialNetworkProps) {
               </Link>
             </Button>
             <EditSocialNetwork link={link} onReload={onReload} />
+            <RemoveSocialNetwork linkId={link.id} onReload={onReload}/>
           </div>
         </div>
       ))}

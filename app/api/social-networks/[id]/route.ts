@@ -20,7 +20,7 @@ export async function PATCH(
 
     const updatedLink = await db.link.update({
       where: { id },
-      data: { link: link, },
+      data: { link: link },
     });
 
     return NextResponse.json(updatedLink, { status: 200 });
@@ -30,6 +30,35 @@ export async function PATCH(
       {
         error: "Failed to update the link",
       },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+
+    if (!id) {
+      return NextResponse.json(
+        {
+          error: "ID are required",
+        },
+        { status: 400 }
+      );
+    }
+
+    const deleteLink = await db.link.delete({
+      where: { id },
+    });
+    return NextResponse.json(deleteLink);
+  } catch (error) {
+    console.error("Delete Link Error", error);
+    return NextResponse.json(
+      { error: "Failed to delete the link" },
       { status: 500 }
     );
   }
