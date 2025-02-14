@@ -8,6 +8,7 @@ import { LoaderProfile } from "@/components/Shared";
 import { StepConfigUserProvider, UserProvider } from "@/contexts";
 import HandlerSteps from "./components/HandlerSteps/HandlerSteps";
 import { ProfileInfo } from "./components/ProfileInfo";
+import { ListSocialNetwork } from "./components/ListSocialNetwork";
 
 export default function HomePage() {
   const { user } = useUser();
@@ -62,20 +63,23 @@ export default function HomePage() {
         <div>
           <LinkProfile />
           {/* Profile Info */}
-          <div>
-            <ProfileInfo onReload={setReload} />
-          </div>
-          <div className="mt-20 flex flex-col items-center">
-            <div className="py-10 font-semibold text-center justify-center flex flex-col items-center text-gray-400">
-              <TreePalm className="h-20 w-20" strokeWidth={1} />
-              <p>Show the world whe you are.</p>
-              <p>Add a link to get started</p>
+
+          <ProfileInfo onReload={setReload} />
+          {infoUser?.links.length > 0 ? (
+            <ListSocialNetwork links={infoUser.links} onReload={setReload} />
+          ) : (
+            <div className="mt-20 flex flex-col items-center">
+              <div className="py-10 font-semibold text-center justify-center flex flex-col items-center text-gray-400">
+                <TreePalm className="h-20 w-20" strokeWidth={1} />
+                <p>Show the world whe you are.</p>
+                <p>Add a link to get started</p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         {/* Profile Preview */}
         <div>
-          <ProfilePreview/>
+          <ProfilePreview />
         </div>
       </div>
     </UserProvider>
