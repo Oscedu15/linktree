@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,25 +28,44 @@ import { Plus } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { linksSocial } from "@/data/linksSocialNetwork";
 import Image from "next/image";
+import { useUserInfo } from "@/hooks/useUser";
+import axios from "axios";
+import { toast } from "@/hooks/use-toast";
 
 export function AddLinkForm(props: AddLinkFormProps) {
   const { onReload } = props;
   const [open, setOpen] = useState(false);
+
+  const { reloadUser } = useUserInfo();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      icon:"",
-      name:"",
-      url:"",
+      icon: "",
+      name: "",
+      link: "",
     },
   });
 
   // 2. Define a submit handler.
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    try {
+      await axios.post("/api/social-networks", values);
+      toast({
+        title: "Social Network Created",
+      });
+      console.log(values);
+      reloadUser();
+      onReload(true);
+      setOpen(false);
+    } catch (error) {
+      toast({
+        title: "Error",
+      });
+      console.log(error);
+    }
   };
   return (
     <div className="mt-6">
@@ -119,7 +137,7 @@ export function AddLinkForm(props: AddLinkFormProps) {
                   />
                   <FormField
                     control={form.control}
-                    name="url"
+                    name="link"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Enter Url: </FormLabel>
