@@ -27,6 +27,8 @@ import {
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { linksSocial } from "@/data/linksSocialNetwork";
+import Image from "next/image";
 
 export function AddLinkForm(props: AddLinkFormProps) {
   const { onReload } = props;
@@ -35,7 +37,9 @@ export function AddLinkForm(props: AddLinkFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      icon:"",
+      name:"",
+      url:"",
     },
   });
 
@@ -76,34 +80,37 @@ export function AddLinkForm(props: AddLinkFormProps) {
                         <FormLabel>Select your icon</FormLabel>
                         <FormControl>
                           <RadioGroup
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                            className="flex flex-col space-y-1"
+                            onValueChange={(value) => {
+                              field.onChange(value);
+                              const selectedLink = linksSocial?.find(
+                                (link) => link.icon === value
+                              );
+                              if (selectedLink) {
+                                form.setValue("name", selectedLink.name);
+                              }
+                            }}
+                            value={field.value || ""}
+                            className="grid grid-cols-4 space-x-1"
                           >
-                            <FormItem className="flex items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="all" />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                All new messages
-                              </FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="mentions" />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                Direct messages and mentions
-                              </FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value="none" />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                Nothing
-                              </FormLabel>
-                            </FormItem>
+                            {linksSocial?.map((link, index) => (
+                              <FormItem
+                                key={index}
+                                className="flex items-center
+                                  gap-1 space-x-0 space-y-0"
+                              >
+                                <FormControl>
+                                  <RadioGroupItem value={link.icon} />
+                                </FormControl>
+                                <FormLabel className="font-normal">
+                                  <Image
+                                    src={link.icon}
+                                    width={40}
+                                    height={40}
+                                    alt="icon"
+                                  />
+                                </FormLabel>
+                              </FormItem>
+                            ))}
                           </RadioGroup>
                         </FormControl>
                         <FormMessage />
@@ -115,18 +122,34 @@ export function AddLinkForm(props: AddLinkFormProps) {
                     name="url"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>url: </FormLabel>
+                        <FormLabel>Enter Url: </FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input placeholder="URL" {...field} />
                         </FormControl>
-                        <FormDescription>
-                          This is your public display name.
-                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <Button type="submit">Submit</Button>
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Social Network Name:</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    className="bg-purple-600 text-white rounded-full
+            w-full hover:bg-purple-800 transition-all duration-300"
+                    type="submit"
+                  >
+                    Create New Social Network
+                  </Button>
                 </form>
               </Form>
             </div>
