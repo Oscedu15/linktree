@@ -3,10 +3,10 @@ import { SocialLinksProps } from "./SocialLinks.types";
 import { dataLinks } from "./SocialLinks.data";
 
 export function SocialLinks(props: SocialLinksProps) {
-  const { username } = props;
-  console.log(username);
+  const { userName } = props;
   const copyToClipboard = () => {
-    const url = `${window.location.origin}/${username}`;
+    // console.log(userName);
+    const url = `${window.location.origin}/${userName}`;
 
     navigator.clipboard
       .writeText(url)
@@ -20,13 +20,13 @@ export function SocialLinks(props: SocialLinksProps) {
 
   return (
     <div className="overflow-auto">
-      <div className="flex gap-4 py-4">
+      <div className="flex gap-4 pt-4 justify-around">
         <div
-          className="flex flex-col items-center gap-2 cursor-pointer"
+          className="flex flex-col items-center  gap-2 cursor-pointer"
           onClick={copyToClipboard}
         >
           <Image
-            src="/social-networks/x.avif"
+            src="/social-networks/link2.png"
             alt="icon"
             width={40}
             height={40}
@@ -34,11 +34,11 @@ export function SocialLinks(props: SocialLinksProps) {
           />
           <span className="text-xs font-semibold">Copy</span>
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="grid items-center justify-end grid-cols-4 gap-x-4">
           {dataLinks?.map((link) => (
             <a
               key={link.id}
-              href={`${link.link}/${username}`}
+              href={`${link.link}/${userName}`}
               target="_blank"
               rel="noreferrer"
               className="flex flex-col items-center gap-2"

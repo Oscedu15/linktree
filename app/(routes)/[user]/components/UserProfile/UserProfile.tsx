@@ -5,6 +5,7 @@ import { MoreInfoProfile } from "./MoreInfoProfile";
 
 export function UserProfile(props: UserProfileProps) {
   const { user } = props;
+  // console.log(user)
   return (
     <div className="flex flex-col items-center justify-between gap-2 h-screen max-w-2xl mx-auto">
       {user?.backgroundImage ? (

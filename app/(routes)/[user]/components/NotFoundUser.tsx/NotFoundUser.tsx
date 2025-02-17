@@ -8,9 +8,9 @@ export function NotFoundUser() {
         <TreePalm className="w-20 h-20 text-green-400" />
         <p className="text-2xl">The Page Youre Looking for doesnt exist.</p>
         <p>
-          Want this to be your username?
+          Want this to be your username?{""}
           <Link className="underline" href="/">
-            Create your Profile Now
+             Create your Profile Now
           </Link>
         </p>
       </div>

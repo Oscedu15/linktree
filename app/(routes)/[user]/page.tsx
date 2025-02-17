@@ -16,6 +16,7 @@ export default function UserPage() {
 
   const router = useRouter();
   const username = params?.user;
+  // console.log(username)
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -51,9 +52,9 @@ export default function UserPage() {
     return <LoaderProfile />;
   }
 
-  if (!infouser) {
+  if (!infouser?.name) {
     return <NotFoundUser />;
   }
 
-  return <UserProfile user={infouser}/>
+  return <UserProfile user={infouser} />;
 }

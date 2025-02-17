@@ -7,6 +7,7 @@ export async function GET(
 ) {
   try {
     const username = (await params).username;
+    // console.log("soy route de username ===> ", username);
 
     if (!username) {
       return NextResponse.json(
