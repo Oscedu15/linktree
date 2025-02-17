@@ -9,7 +9,7 @@ export function ListSocialNetworks() {
     <ul className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
       {links?.map((link, index) => (
         <li key={index}>
-          <a href={link.link || null} target="_blank" rel="noopener">
+          <a href={link.link || undefined} target="_blank" rel="noopener">
             <Image src={link.icon || ""} alt="Icon" width={40} height={40} />
           </a>
         </li>

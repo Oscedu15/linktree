@@ -6,19 +6,18 @@ import { ExternalLink } from "lucide-react";
 import { EditSocialNetwork } from "./EditSocialNetwork";
 import { RemoveSocialNetwork } from "./RemoveSocialNetwork";
 
-
 export function ListSocialNetwork(props: ListSocialNetworkProps) {
   const { links, onReload } = props;
   return (
     <div className="grid gap-6 mt-6 max-w-2xl mx-auto">
-      {links?.map((link, index) => (
+      {links?.map((link) => (
         <div
-          key={index}
+          key={link.id}
           className="bg-white rounded-full py-4 px-8 flex gap-4 items-center justify-between"
         >
           <div className="flex gap-2 items-center">
             <Image
-              src={link.icon}
+              src={link.icon || ""}
               alt="icon"
               width={50}
               height={50}
@@ -36,7 +35,7 @@ export function ListSocialNetwork(props: ListSocialNetworkProps) {
               </Link>
             </Button>
             <EditSocialNetwork link={link} onReload={onReload} />
-            <RemoveSocialNetwork linkId={link.id} onReload={onReload}/>
+            <RemoveSocialNetwork linkId={link.id} onReload={onReload} />
           </div>
         </div>
       ))}
