@@ -11,7 +11,7 @@ export function ProfilePreview() {
       <ButtonsHeader />
       <ButtonCopyProfile />
       <PhonePreview />
-      <div className="flex items-center justify-center mt-20">
+      <div className="flex items-center justify-center my-10">
         <p className="flex gap-1 items-center font-semibold">{user?.username}</p>
         <Lock className="w-4 h-4" />
       </div>

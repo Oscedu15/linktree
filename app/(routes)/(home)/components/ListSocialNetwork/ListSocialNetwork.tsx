@@ -13,7 +13,7 @@ export function ListSocialNetwork(props: ListSocialNetworkProps) {
       {links?.map((link) => (
         <div
           key={link.id}
-          className="bg-white rounded-full py-4 px-8 flex gap-4 items-center justify-between"
+          className="bg-white rounded-full py-4 px-4 flex gap-4 items-center justify-between"
         >
           <div className="flex gap-2 items-center">
             <Image
@@ -25,7 +25,7 @@ export function ListSocialNetwork(props: ListSocialNetworkProps) {
             />
             <div className="flex flex-col">
               <span className="text-sm">{link.name}</span>
-              <span className="text-xs text-slate-500">{link.link}</span>
+              <span className="text-sm text-slate-500 hidden sm:block">{link.link}</span>
             </div>
           </div>
           <div className="flex gap-4 items-center">

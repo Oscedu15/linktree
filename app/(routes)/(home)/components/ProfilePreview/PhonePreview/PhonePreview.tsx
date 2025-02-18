@@ -21,7 +21,7 @@ export function PhonePreview() {
               className="absolute top-0 left-0 w-full h-full rounded-[2rem]"
             />
           ) : (
-            <div className="absolute top-0 left-0 w-full h-full bg-[#E4E9ED]" />
+            <div className="absolute top-0 left-0 w-full h-full bg-[#E4E9ED] rounded-[2rem]" />
           )}
           <div className="relative z-10 flex flex-col items-center p-6 justify-between h-full">
             <Image
