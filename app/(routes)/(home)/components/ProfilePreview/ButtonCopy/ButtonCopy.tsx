@@ -27,7 +27,7 @@ export function ButtonCopyProfile() {
         onClick={copyProfile}
       >
         <span className="pl-4">
-          {window.location.origin}
+          {window.location.origin}/
           <span>{user?.username}</span>
         </span>
         <Button
