@@ -8,7 +8,7 @@ export function UserProfile(props: UserProfileProps) {
   const { user } = props;
   // console.log(user)
   return (
-    <div className="flex flex-col items-center justify-between gap-2 h-full max-w-2xl mx-auto">
+    <div className="flex flex-col relative items-center justify-between gap-2 h-full max-w-md md:max-w-2xl mx-auto">
       {user?.backgroundImage ? (
         <Image
           src={user.backgroundImage}
@@ -45,7 +45,7 @@ export function UserProfile(props: UserProfileProps) {
           {user.links.map((link) => (
             <div
               key={link.id}
-              className="bg-cyan-900 text-white w-[400px] px-10 py-4 items-center justify-center hover:bg-violet-200 cursor-pointer hover:text-violet-800 transition-all duration-200 rounded-full"
+              className="bg-cyan-900 text-white w-[350px] md:w-[400px] px-10 py-4 items-center justify-center hover:bg-violet-200 cursor-pointer hover:text-violet-800 transition-all duration-200 rounded-full"
             >
               <Link
                 href={link.link || ""}
@@ -67,7 +67,7 @@ export function UserProfile(props: UserProfileProps) {
           ))}
         </div>
       </div>
-      <div className="pb-5 z-10">
+      <div className="pb-5 z-10 mt-6">
         <div className="flex gap-2 items-center justify-center py-2 px-5 bg-white rounded-full shadow-lg ">
           <TreePalm className="h-5 w-5" />
           TarreTree Clone

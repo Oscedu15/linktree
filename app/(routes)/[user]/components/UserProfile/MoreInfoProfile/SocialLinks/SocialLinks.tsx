@@ -50,7 +50,7 @@ export function SocialLinks(props: SocialLinksProps) {
                 height={40}
                 className="hover:scale-110 transition-all duration-200"
               />
-              <span className="text-xs font-semibold">{link.text}</span>
+              <p className="text-xs font-semibold">{link.text}</p>
             </a>
           ))}
         </div>
